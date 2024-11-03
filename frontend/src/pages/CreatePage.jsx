@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useProductStore } from "../store/product";
 
 const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
@@ -16,8 +17,12 @@ const CreatePage = () => {
     image: "",
   });
 
-  const handleSubmit = async (e) => {
-    console.log(newProduct);
+  const { createProduct } = useProductStore();
+
+  const handleSubmit = async () => {
+    const { success, message } = await createProduct(newProduct);
+    console.log("Success:", success);
+    console.log("Message:", message);
   };
 
   return (
